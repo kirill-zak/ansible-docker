@@ -12,3 +12,8 @@ def test_hosts_file(host):
     assert f.exists
     assert f.user == 'root'
     assert f.group == 'root'
+
+def test_docker_is_installed(host):
+    docker = host.package("docker-ce")
+
+    assert docker.is_installed

@@ -3,7 +3,7 @@ language: python
 services:
   - docker
 python:
-  - "3.6"
+  - "3.7"
 env:
   - UBUNTU_IMAGE_TAG: bionic
 install:
