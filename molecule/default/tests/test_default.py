@@ -17,3 +17,9 @@ def test_docker_is_installed(host):
     docker = host.package("docker-ce")
 
     assert docker.is_installed
+
+def test_docker_is_enabled_and_is_running(host):
+    service = host.service("docker")
+
+    assert service.is_running
+    assert service.is_enabled

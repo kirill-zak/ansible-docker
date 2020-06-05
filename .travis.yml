@@ -1,14 +1,22 @@
 ---
 language: python
+
 services:
   - docker
+
 python:
   - "3.7"
+
 env:
-  - UBUNTU_IMAGE_TAG: bionic
+  - MOLECULE_DISTRO: ubuntu2004
+  - MOLECULE_DISTRO: ubuntu1804
+  - MOLECULE_DISTRO: ubuntu1604
+
 install:
   - pip install testinfra molecule docker
+
 script:
   - molecule test
+
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

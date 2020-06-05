@@ -12,7 +12,9 @@ N/A
 
 * `docker_gpg_key`: GPG key for Docker repository
 * `docker_ubuntu_release`: Version of Ubuntu release
-* `docker_users`: a list of users to add to the docker group. They will not be evaluated until a session is created.
+* `docker_users`: A list of users to add to the docker group. They will not be evaluated until a session is created.
+* `docker_service_state`: Docker service state
+* `docker_service_enabled`: Docker service enable status
 
 ## Dependencies
 
