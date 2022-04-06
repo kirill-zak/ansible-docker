@@ -1,8 +1,9 @@
 ---
-name: CI
+name: Release
 'on':
-  pull_request:
   push:
+    tags:
+      - '*'
 
 jobs:
   lint:
@@ -25,7 +26,7 @@ jobs:
         run: |
           yamllint .
           ansible-lint
-  
+
   test:
     name: Molecule
     runs-on: ubuntu-latest
@@ -46,7 +47,7 @@ jobs:
           python-version: '3.x'
 
       - name: Install test dependencies
-        run: pip3 install ansible molecule yamllint ansible-lint
+        run: pip3 install ansible molecule[docker] docker yamllint ansible-lint
 
       - name: Run Molecule tests
         run: molecule test
@@ -54,3 +55,17 @@ jobs:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
           MOLECULE_DISTRO: ${{ matrix.distro }}
+
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+
+    needs:
+      - lint
+      - test
+
+    steps:
+      - name: Notify ansible-galaxy
+        uses: robertdebock/galaxy-action@1.2.0
+        with:
+          galaxy_api_key: ${{ secrets.galaxy_api_key }}
