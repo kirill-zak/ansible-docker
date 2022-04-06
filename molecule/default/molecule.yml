@@ -1,6 +1,10 @@
 ---
 dependency:
   name: galaxy
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
 driver:
   name: docker
 platforms:
@@ -9,9 +13,10 @@ platforms:
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /var/lib/docker/aufs:/var/lib/docker/aufs/
     privileged: true
     pre_build_image: true
 provisioner:
   name: ansible
 verifier:
-  name: testinfra
+  name: ansible
