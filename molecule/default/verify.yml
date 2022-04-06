@@ -1,0 +1,20 @@
+---
+- name: Verify
+  hosts: all
+  tasks:
+    - name: Gather the package facts
+      ansible.builtin.package_facts:
+        manager: auto
+
+    - name: Check if docker package installed
+      ansible.builtin.assert:
+        that: 
+          - "'docker-ce' in ansible_facts.packages"
+          - "'containerd.io' in ansible_facts.packages"
+
+    - name: Gather service facts
+      ansible.builtin.service_facts:
+
+    - name: Check if docker service run
+      ansible.builtin.assert:
+        that: "'running' in ansible_facts.services['docker']['state']"
