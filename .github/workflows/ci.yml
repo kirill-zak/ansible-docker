@@ -35,6 +35,8 @@ jobs:
     strategy:
       matrix:
         distro:
+          - centos7
+          - centos8
           - debian10
           - debian11
           - ubuntu2004

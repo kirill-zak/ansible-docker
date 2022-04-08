@@ -1,9 +1,13 @@
 ---
-- name: Include Debian install tast
+- name: Include CentOS install task
+  include_tasks: install/centos.yml
+  when: ansible_distribution == 'CentOS'
+
+- name: Include Debian install task
   include_tasks: install/debian.yml
   when: ansible_distribution == 'Debian'
 
-- name: Include Ubuntu install tast
+- name: Include Ubuntu install task
   include_tasks: install/ubuntu.yml
   when: ansible_distribution == 'Ubuntu'
 
