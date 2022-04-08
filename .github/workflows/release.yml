@@ -34,6 +34,8 @@ jobs:
     strategy:
       matrix:
         distro:
+          - debian10
+          - debian11
           - ubuntu2004
           - ubuntu1804
 
