@@ -2,11 +2,15 @@
 galaxy_info:
   author: kirill_zak
   role_name: docker
-  description: Docker for Ubuntu LTS
+  description: Install Docker on Debain and Ubuntu system
   company: https://kirill-zak.ru
   license: GPLv3
   min_ansible_version: '2.7'
   platforms:
+    - name: Debian
+      versions:
+        - buster
+        - bullseye
     - name: Ubuntu
       versions:
         - focal

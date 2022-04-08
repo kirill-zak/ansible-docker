@@ -3,6 +3,8 @@ name: CI
 'on':
   pull_request:
   push:
+    branches:
+      - master
 
 jobs:
   lint:
@@ -33,6 +35,8 @@ jobs:
     strategy:
       matrix:
         distro:
+          - debian10
+          - debian11
           - ubuntu2004
           - ubuntu1804
 

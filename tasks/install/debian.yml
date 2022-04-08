@@ -1,0 +1,68 @@
+---
+# Based on https://docs.docker.com/engine/install/debian/
+- name: Ensure old versions of Docker are not installed
+  ansible.builtin.apt:
+    name:
+      - docker
+      - docker-engine
+      - docker.io
+      - containerd
+      - runc
+    state: absent
+
+- name: Install Docker dependencies
+  ansible.builtin.apt:
+    name:
+      - ca-certificates
+      - curl
+      - gnupg
+      - lsb-release
+    state: present
+  register: result
+  until: result is success
+  retries: 5
+  delay: 5
+
+- name: Set Debian version from lsb-release if not configurated
+  ansible.builtin.command: lsb_release -cs
+  register: debian_lsb_release
+  when: not docker_debian_release|default(None)
+  changed_when: false
+
+- name: Get architecture version
+  ansible.builtin.command: dpkg --print-architecture
+  register: debian_architecture
+  changed_when: false
+
+- name: Add Docker GPG key
+  ansible.builtin.apt_key:
+    url: https://download.docker.com/linux/debian/gpg
+    state: present
+  register: result
+  until: result is success
+  retries: 5
+  delay: 5
+
+- name: Add Docker Repository if version of Debian is not set
+  ansible.builtin.apt_repository:
+    repo: "deb [arch={{ debian_architecture.stdout }}] https://download.docker.com/linux/debian {{ debian_lsb_release.stdout }} stable"
+    state: present
+    filename: docker
+    update_cache: true
+  when: not docker_debian_release|default(None)
+
+- name: Add Docker Repository if version of Debian is set
+  ansible.builtin.apt_repository:
+    repo: "deb [arch={{ debian_architecture.stdout }}] https://download.docker.com/linux/debian {{ docker_debian_release }} stable"
+    state: present
+    filename: docker
+    update_cache: true
+  when: docker_debian_release|default(None)
+
+- name: Install Docker
+  ansible.builtin.apt:
+    name:
+      - docker-ce 
+      - docker-ce-cli 
+      - containerd.io
+    state: present
