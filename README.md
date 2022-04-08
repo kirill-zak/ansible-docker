@@ -1,6 +1,6 @@
 # Ansible Docker
 
-An Ansible role that installs the latest version of Docker CE on Ubuntu based on the official installation instructions.
+An Ansible role that installs the latest version of Docker CE on the official installation instructions.
 
 ## Requirements
 
@@ -8,8 +8,8 @@ N/A
 
 ## Role Variables
 
-* `docker_gpg_key`: GPG key for Docker repository
-* `docker_ubuntu_release`: Version of Ubuntu release
+* `docker_debian_release`: Version of Debian release. Using `lsb_release -cs` If not present
+* `docker_ubuntu_release`: Version of Ubuntu release. Using `lsb_release -cs` If not present
 * `docker_users`: A list of users to add to the docker group. They will not be evaluated until a session is created.
 * `docker_service_state`: Docker service state
 * `docker_service_enabled`: Docker service enable status
@@ -24,7 +24,7 @@ N/A
 - hosts: all
   become: true
   roles:
-    - role: kirill_zak.ansible_docker
+    - role: kirill_zak.docker
 ```
 
 ## License
