@@ -15,10 +15,10 @@
     - name: Gather service facts
       ansible.builtin.service_facts:
 
-    - name: Check if docker service run (for CentOS)
+    - name: Check if docker service run (for CentOS or Fedora)
       ansible.builtin.assert:
         that: "'running' in ansible_facts.services['docker.service']['state']"
-      when: ansible_distribution == 'CentOS'
+      when: ansible_distribution == 'CentOS' or ansible_distribution == 'Fedora'
 
     - name: Check if docker service run (for Ubuntu or Debian)
       ansible.builtin.assert:
