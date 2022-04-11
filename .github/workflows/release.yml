@@ -38,7 +38,6 @@ jobs:
           - centos8
           - debian10
           - debian11
-          - fedora34
           - fedora35
           - ubuntu2004
           - ubuntu1804
