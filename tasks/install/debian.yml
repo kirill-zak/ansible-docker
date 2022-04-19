@@ -63,7 +63,7 @@
 - name: Install Docker
   ansible.builtin.apt:
     name:
-      - docker-ce 
-      - docker-ce-cli 
+      - docker-ce
+      - docker-ce-cli
       - containerd.io
     state: present
