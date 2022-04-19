@@ -23,7 +23,7 @@ N/A
 * `docker_users`: A list of users to add to the docker group. They will not be evaluated until a session is created.
 * `docker_service_state`: Docker service state
 * `docker_service_enabled`: Docker service enable status
-* `docker_service_proxy`: Docker service proxy (using only for Fedora). Default value `1.1.1.1`
+* `docker_service_proxy`: Docker service proxy. Default value is empty.
 
 ## Dependencies
 

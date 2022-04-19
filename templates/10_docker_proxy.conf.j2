@@ -1,3 +1,4 @@
 [Service]
-Environment=HTTP_PROXY=http://{{ docker_service_proxy }}:111
-Environment=HTTPS_PROXY=http://{{ docker_service_proxy }}:111
+Environment="HTTP_PROXY=http://{{ docker_service_proxy }}"
+Environment="HTTPS_PROXY=http://{{ docker_service_proxy }}"
+Environment="NO_PROXY=localhost,127.0.0.1"

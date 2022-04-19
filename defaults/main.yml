@@ -3,7 +3,7 @@ docker_ubuntu_release:
 docker_debian_release:
 docker_service_state: started
 docker_service_enabled: true
-docker_service_proxy: 1.1.1.1
+docker_service_proxy:
 
 docker_users:
   - root
