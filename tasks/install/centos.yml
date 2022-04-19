@@ -15,7 +15,7 @@
 
 - name: Install Docker dependencies
   ansible.builtin.yum:
-    name: 
+    name:
       - yum-utils
     state: present
   register: result
@@ -30,11 +30,12 @@
 - name: Install Docker
   ansible.builtin.yum:
     name:
-      - docker-ce 
-      - docker-ce-cli 
+      - docker-ce
+      - docker-ce-cli
       - containerd.io
     state: present
   register: result
   until: result is success
   retries: 5
   delay: 5
+  
