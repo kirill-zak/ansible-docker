@@ -1,4 +1,24 @@
 ---
+- name: Create directory for Docker proxy configuration
+  ansible.builtin.file:
+    path: /etc/systemd/system/docker.service.d/
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+  changed_when: false
+  when: docker_service_proxy
+
+- name: Create Docker service proxy configuration
+  ansible.builtin.template:
+    src: 10_docker_proxy.conf.j2
+    dest: /etc/systemd/system/docker.service.d/10_docker_proxy.conf
+    owner: root
+    group: root
+    mode: '0644'
+  changed_when: false
+  when: docker_service_proxy
+
 - name: Ensure Docker is started and enabled at boot.
   ansible.builtin.service:
     name: docker
