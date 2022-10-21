@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checko out the codebase
+      - name: Checkout out the codebase
         uses: actions/checkout@v3
 
       - name: Set up Python 3
@@ -44,7 +44,7 @@ jobs:
           - ubuntu1804
 
     steps:
-      - name: Checko out the codebase
+      - name: Checkout out the codebase
         uses: actions/checkout@v3
 
       - name: Set up Python 3
