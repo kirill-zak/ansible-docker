@@ -1,4 +1,8 @@
 ---
+- name: Include AlmaLinux install task
+  include_tasks: install/almalinux.yml
+  when: ansible_distribution == 'AlmaLinux'
+
 - name: Include CentOS install task
   include_tasks: install/centos.yml
   when: ansible_distribution == 'CentOS'
