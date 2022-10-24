@@ -45,7 +45,7 @@ jobs:
           - kirillzak/docker-almalinux9
 
     steps:
-      - name: Checko out the codebase
+      - name: Checkout out the codebase
         uses: actions/checkout@v3
 
       - name: Set up Python 3
