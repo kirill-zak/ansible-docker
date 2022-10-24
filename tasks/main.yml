@@ -19,4 +19,5 @@
   include_tasks: install/ubuntu.yml
   when: ansible_distribution == 'Ubuntu'
 
-- include_tasks: post_process.yml
+- name: Include post post process task
+  include_tasks: post_process.yml
