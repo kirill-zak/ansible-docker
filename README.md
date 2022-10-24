@@ -4,6 +4,7 @@ An Ansible role that installs the latest version of Docker CE on the official in
 
 ## Support distributive
 
+* AlmaLinux 9
 * CentOS 7
 * CentOS 8
 * Debian 10 (Buster)
