@@ -43,6 +43,8 @@ jobs:
           - geerlingguy/docker-fedora36
           - geerlingguy/docker-ubuntu2004
           - geerlingguy/docker-ubuntu1804
+          - kirillzak/docker-almalinux8.5
+          - kirillzak/docker-almalinux8.6
           - kirillzak/docker-almalinux9
 
     steps:
