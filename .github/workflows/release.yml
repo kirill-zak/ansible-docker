@@ -32,8 +32,10 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
+      fail-fast: false
+
       matrix:
-        distro:
+        distr:
           - geerlingguy/docker-centos7
           - geerlingguy/docker-centos8
           - geerlingguy/docker-debian10
@@ -45,6 +47,10 @@ jobs:
           - kirillzak/docker-almalinux8.5
           - kirillzak/docker-almalinux8.6
           - kirillzak/docker-almalinux9
+          - kirillzak/docker-rockylinux9
+        include:
+          - distr: kirillzak/docker-rockylinux9
+            command: "/usr/sbin/init"
 
     steps:
       - name: Checkout the codebase
@@ -63,7 +69,8 @@ jobs:
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
-          MOLECULE_DISTRO: ${{ matrix.distro }}
+          MOLECULE_DISTR: ${{ matrix.distr }}
+          MOLECULE_DOCKER_COMMAND: ${{ matrix.command }}
 
   release:
     name: Release
