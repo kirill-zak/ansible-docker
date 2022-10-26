@@ -15,6 +15,10 @@
   include_tasks: install/fedora.yml
   when: ansible_distribution == 'Fedora'
 
+- name: Include Rocky Linux install task
+  include_tasks: install/rockylinux.yml
+  when: ansible_distribution == 'Rocky'
+
 - name: Include Ubuntu install task
   include_tasks: install/ubuntu.yml
   when: ansible_distribution == 'Ubuntu'
