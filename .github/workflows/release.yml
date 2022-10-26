@@ -49,6 +49,10 @@ jobs:
           - kirillzak/docker-almalinux9
           - kirillzak/docker-rockylinux9
         include:
+          - distr: kirillzak/docker-almalinux8.5
+            command: "/usr/sbin/init"
+          - distr: kirillzak/docker-almalinux8.6
+            command: "/usr/sbin/init"
           - distr: kirillzak/docker-rockylinux9
             command: "/usr/sbin/init"
 
