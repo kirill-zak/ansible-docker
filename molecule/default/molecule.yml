@@ -9,8 +9,8 @@ driver:
   name: docker
 platforms:
   - name: instance
-    image: "${MOLECULE_DISTRO:-geerlingguy/docker-ubuntu2004}-ansible:latest"
-    command: "/usr/sbin/init"
+    image: "${MOLECULE_DISTR:-geerlingguy/docker-ubuntu2004}-ansible:latest"
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
