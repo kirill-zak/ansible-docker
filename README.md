@@ -10,6 +10,7 @@ An Ansible role that installs the latest version of Docker CE on the official in
 * Debian 10 (Buster)
 * Debian 11 (Bullseye)
 * Fedora 35
+* Fedora 36
 * Rocky Linux 9
 * Ubuntu 18.04 (Bionic Beaver)
 * Ubuntu 20.04 (Focal Fossa)
