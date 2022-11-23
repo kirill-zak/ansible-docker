@@ -3,6 +3,10 @@
   include_tasks: install/almalinux.yml
   when: ansible_distribution == 'AlmaLinux'
 
+- name: Include Alpine Linux install task
+  include_tasks: install/alpine.yml
+  when: ansible_distribution == 'Alpine'
+
 - name: Include CentOS install task
   include_tasks: install/centos.yml
   when: ansible_distribution == 'CentOS'
