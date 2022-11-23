@@ -51,7 +51,6 @@ jobs:
           - geerlingguy/docker-ubuntu2204
           - kirillzak/docker-almalinux9
           - kirillzak/docker-rockylinux9
-          - kirillzak/docker-alpine
         include:
           - distr: kirillzak/docker-rockylinux9
             command: "/usr/sbin/init"
