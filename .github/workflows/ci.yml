@@ -23,6 +23,9 @@ jobs:
       - name: Install lint dependencies
         run: pip3 install yamllint ansible-lint
 
+      - name: Install ansible dependencies
+        run: ansible-galaxy collection install community.general
+
       - name: Run linter
         run: |
           yamllint .
@@ -51,6 +54,14 @@ jobs:
         include:
           - distr: kirillzak/docker-rockylinux9
             command: "/usr/sbin/init"
+          - distr: kirillzak/docker-alpine
+            tag: 3.16.0
+          - distr: kirillzak/docker-alpine
+            tag: 3.16.1
+          - distr: kirillzak/docker-alpine
+            tag: 3.16.2
+          - distr: kirillzak/docker-alpine
+            tag: 3.16.3
 
     steps:
       - name: Checkout the codebase
@@ -71,3 +82,4 @@ jobs:
           ANSIBLE_FORCE_COLOR: '1'
           MOLECULE_DISTR: ${{ matrix.distr }}
           MOLECULE_DOCKER_COMMAND: ${{ matrix.command }}
+          MOLECULE_TAG: ${{ matrix.tag }}

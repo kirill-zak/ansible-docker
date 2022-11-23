@@ -1,0 +1,6 @@
+---
+- name: Install docker
+  community.general.apk:
+    name: docker
+    state: latest
+    no_cache: true
