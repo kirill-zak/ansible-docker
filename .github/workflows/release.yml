@@ -28,7 +28,7 @@ jobs:
       - name: Run linter
         run: |
           yamllint .
-          ansible-lint
+          ansible-lint .
 
   test:
     name: Molecule
@@ -61,6 +61,8 @@ jobs:
             tag: 3.16.2
           - distr: kirillzak/docker-alpine
             tag: 3.16.3
+          - distr: kirillzak/docker-alpine
+            tag: 3.16.4
           - distr: kirillzak/docker-alpine
             tag: 3.17.0
 
