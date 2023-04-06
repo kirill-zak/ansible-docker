@@ -39,7 +39,6 @@ jobs:
 
       matrix:
         distr:
-          - geerlingguy/docker-centos7
           - geerlingguy/docker-centos8
           - geerlingguy/docker-debian10
           - geerlingguy/docker-debian11
