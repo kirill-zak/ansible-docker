@@ -4,12 +4,6 @@
   become: true
 
   pre_tasks:
-    - name: Update packages before test
-      ansible.builtin.package:
-        name: "*"
-        state: latest
-      when: ansible_distribution != 'Alpine'
-
     - name: Wait for systemd to complete initialization.  # noqa 303
       ansible.builtin.command: systemctl is-system-running
       register: systemctl_status
