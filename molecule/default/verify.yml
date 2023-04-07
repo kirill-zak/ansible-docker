@@ -2,19 +2,46 @@
 - name: Verify
   hosts: all
   tasks:
+    # Verify Docker package status
     - name: Gather the package facts
       ansible.builtin.package_facts:
         manager: auto
+      when: ansible_distribution != 'Alpine'
 
     - name: Check if docker package installed
       ansible.builtin.assert:
         that: 
           - "'docker-ce' in ansible_facts.packages"
           - "'containerd.io' in ansible_facts.packages"
+      when: ansible_distribution != 'Alpine'
 
+    - name: Get Docker package status for Alpine Linux
+      community.general.apk:
+        name: docker
+        state: latest
+      register: alpine_package_facts
+      when: ansible_distribution == 'Alpine'
+
+    - name: Check Docker package status for Alpine Linux
+      ansible.builtin.assert:
+        that: "false == alpine_package_facts['changed']"
+      when: ansible_distribution == 'Alpine'
+
+    # Verify Docker service run and enabled status
     - name: Gather service facts
       ansible.builtin.service_facts:
 
-    - name: Check if docker service run
+    - name: Check if docker service run for SystemD init system
       ansible.builtin.assert:
         that: "'running' in ansible_facts.services['docker.service']['state']"
+      when: ansible_distribution != 'Alpine'
+
+    - name: Check if docker service enabled for SystemD init system
+      ansible.builtin.assert:
+        that: "'enabled' in ansible_facts.services['docker.service']['status']"
+      when: ansible_distribution != 'Alpine'
+
+    - name: Check if docker service run for OpenRC init system
+      ansible.builtin.assert:
+        that: "'started' in ansible_facts.services['docker']['state']"
+      when: ansible_distribution == 'Alpine'

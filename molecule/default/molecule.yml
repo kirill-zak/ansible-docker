@@ -4,12 +4,12 @@ dependency:
 lint: |
   set -e
   yamllint .
-  ansible-lint
+  ansible-lint .
 driver:
-  name: docker
+  name: podman
 platforms:
   - name: instance
-    image: "${MOLECULE_DISTR:-geerlingguy/docker-ubuntu2004}-ansible:latest"
+    image: "${MOLECULE_DISTR:-geerlingguy/docker-ubuntu2204}-ansible:${MOLECULE_TAG:-latest}"
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
