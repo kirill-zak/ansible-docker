@@ -6,7 +6,7 @@ lint: |
   yamllint .
   ansible-lint .
 driver:
-  name: docker
+  name: podman
 platforms:
   - name: instance
     image: "${MOLECULE_DISTR:-geerlingguy/docker-ubuntu2204}-ansible:${MOLECULE_TAG:-latest}"
