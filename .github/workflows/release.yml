@@ -61,7 +61,7 @@ jobs:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
           MOLECULE_DISTR: kirillzak/docker-almalinux-ansible
-          MOLECULE_TAG: ${{ matrix.tag }}
+          MOLECULE_TAG: '${{ matrix.tag }}'
 
 
   test-alpine:
@@ -211,7 +211,7 @@ jobs:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
           MOLECULE_DISTR: kirillzak/docker-rockylinux-ansible
-          MOLECULE_TAG: ${{ matrix.tag }}
+          MOLECULE_TAG: '${{ matrix.tag }}'
 
   test-ubuntu:
     name: Molecule test - Ubuntu
