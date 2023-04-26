@@ -34,6 +34,12 @@ jobs:
     name: Molecule test - AlmaLinux 9.0
     runs-on: ubuntu-latest
 
+    strategy:
+      fail-fast: false
+
+      matrix:
+        tag: [9.0]
+
     steps:
       - name: Checkout the codebase
         uses: actions/checkout@v3
@@ -55,7 +61,7 @@ jobs:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
           MOLECULE_DISTR: kirillzak/docker-almalinux-ansible
-          MOLECULE_TAG: 9.0
+          MOLECULE_TAG: ${{ matrix.tag }}
 
 
   test-alpine:
@@ -178,6 +184,12 @@ jobs:
     name: Molecule test - Rocky Linux 9.0
     runs-on: ubuntu-latest
 
+    strategy:
+      fail-fast: false
+
+      matrix:
+        tag: [9.0]
+
     steps:
       - name: Checkout the codebase
         uses: actions/checkout@v3
@@ -199,7 +211,7 @@ jobs:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
           MOLECULE_DISTR: kirillzak/docker-rockylinux-ansible
-          MOLECULE_TAG: 9.0
+          MOLECULE_TAG: ${{ matrix.tag }}
 
   test-ubuntu:
     name: Molecule test - Ubuntu
