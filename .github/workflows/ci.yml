@@ -32,7 +32,7 @@ jobs:
           ansible-lint .
   
   test-almalinux:
-    name: Molecule test - AlmaLinux
+    name: Molecule test - AlmaLinux 9.0
     runs-on: ubuntu-latest
 
     steps:
@@ -176,7 +176,7 @@ jobs:
           MOLECULE_TAG: ${{ matrix.tag }}
   
   test-rockylinux:
-    name: Molecule test - Rocky Linux
+    name: Molecule test - Rocky Linux 9.0
     runs-on: ubuntu-latest
 
     steps:
