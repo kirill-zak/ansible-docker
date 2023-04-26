@@ -63,7 +63,6 @@ jobs:
           MOLECULE_DISTR: kirillzak/docker-almalinux-ansible
           MOLECULE_TAG: '${{ matrix.tag }}'
 
-
   test-alpine:
     name: Molecule test - Alpine Linux
     runs-on: ubuntu-latest
@@ -249,7 +248,13 @@ jobs:
 
     needs:
       - lint
-      - test
+      - test-almalinux
+      - test-alpine
+      - test-centos
+      - test-debian
+      - test-fedora
+      - test-rockylinux
+      - test-ubuntu
 
     steps:
       - name: Notify ansible-galaxy
