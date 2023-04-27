@@ -61,7 +61,7 @@ jobs:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
           MOLECULE_DISTR: kirillzak/docker-almalinux-ansible
-          MOLECULE_TAG: '${{ matrix.tag }}'
+          MOLECULE_TAG: ${{ matrix.tag }}
 
   test-alpine:
     name: Molecule test - Alpine Linux
@@ -71,7 +71,7 @@ jobs:
       fail-fast: false
 
       matrix:
-        tag: [3.16.0, 3.16.1, 3.16.2, 3.16.3, 3.16.4, 3.16.5, 3.17.0]
+        tag: ['3.16.0', '3.16.1', '3.16.2', '3.16.3', '3.16.4', '3.16.5', '3.17.0', '3.17.1']
 
     steps:
       - name: Checkout the codebase
@@ -210,7 +210,7 @@ jobs:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
           MOLECULE_DISTR: kirillzak/docker-rockylinux-ansible
-          MOLECULE_TAG: '${{ matrix.tag }}'
+          MOLECULE_TAG: ${{ matrix.tag }}
 
   test-ubuntu:
     name: Molecule test - Ubuntu
