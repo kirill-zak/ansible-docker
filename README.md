@@ -6,7 +6,7 @@ An Ansible role that installs the latest version of Docker CE on the official in
 
 * AlmaLinux `9.0`
 * Alpine Linux 3.16.x (`3.16.0`, `3.16.1`, `3.16.2`, `3.16.3`, `3.16.4`, `3.16.5`)
-* Alpine Linux 3.17.x (`3.17.0`, `3.17.1`, `3.17.2`)
+* Alpine Linux 3.17.x (`3.17.0`, `3.17.1`, `3.17.2`, `3.17.3`)
 * CentOS `8`
 * Debian `10` (`Buster`)
 * Debian `11` (`Bullseye`)
