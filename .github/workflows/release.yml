@@ -31,14 +31,14 @@ jobs:
           ansible-lint .
   
   test-almalinux:
-    name: Molecule test - AlmaLinux 9.0
+    name: Molecule test - AlmaLinux 9.x
     runs-on: ubuntu-latest
 
     strategy:
       fail-fast: false
 
       matrix:
-        tag: ['9.0', '9.1']
+        tag: ['9.0', '9.1', '9.2']
 
     steps:
       - name: Checkout the codebase
