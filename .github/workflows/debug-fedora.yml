@@ -1,0 +1,65 @@
+---
+name: Debug Fedora dockerd
+
+# TEMPORARY: diagnose why docker.service fails to start under rootless
+# podman on the Fedora test jobs. Remove before merging.
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - '66-optimize-ci'
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout the codebase
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.x'
+
+      - name: Install test dependencies
+        run: pip3 install -r requirements.txt
+
+      - name: Install ansible dependencies
+        run: ansible-galaxy collection install -r requirements.yml
+
+      - name: Create molecule instance
+        run: molecule create
+        env:
+          MOLECULE_DISTR: kirillzak/docker-fedora-ansible
+          MOLECULE_TAG: '44'
+
+      - name: Converge (expected to fail at docker service start)
+        run: molecule converge
+        continue-on-error: true
+        env:
+          MOLECULE_DISTR: kirillzak/docker-fedora-ansible
+          MOLECULE_TAG: '44'
+
+      - name: Diagnose docker service failure
+        run: |
+          C=$(podman ps -qaf name=instance | head -1)
+          echo "container=$C"
+          podman exec "$C" sh -c '
+            echo "=== iptables backend ==="
+            iptables --version
+            ls -l /usr/sbin/iptables* 2>/dev/null
+            echo
+            echo "=== systemctl status docker ==="
+            systemctl status docker --no-pager 2>&1 | head -25
+            echo
+            echo "=== journalctl docker ==="
+            journalctl -u docker -n 50 --no-pager 2>&1 | tail -50
+            echo
+            echo "=== manual dockerd run ==="
+            timeout 20 /usr/bin/dockerd 2>&1 | tail -30
+          ' || true
+
+      - name: Always clean up
+        if: always()
+        run: molecule destroy

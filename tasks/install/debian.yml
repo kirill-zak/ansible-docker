@@ -35,10 +35,21 @@
   register: debian_architecture
   changed_when: false
 
+- name: Create keyrings directory for third-party repositories
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
 - name: Add Docker GPG key
-  ansible.builtin.apt_key:
+  ansible.builtin.get_url:
     url: https://download.docker.com/linux/debian/gpg
-    state: present
+    dest: /etc/apt/keyrings/docker.asc
+    owner: root
+    group: root
+    mode: '0644'
   register: result
   until: result is success
   retries: 5
@@ -46,7 +57,7 @@
 
 - name: Add Docker Repository if version of Debian is not set
   ansible.builtin.apt_repository:
-    repo: "deb [arch={{ debian_architecture.stdout }}] https://download.docker.com/linux/debian {{ debian_lsb_release.stdout }} stable"
+    repo: "deb [arch={{ debian_architecture.stdout }} signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian {{ debian_lsb_release.stdout }} stable"
     state: present
     filename: docker
     update_cache: true
@@ -54,7 +65,7 @@
 
 - name: Add Docker Repository if version of Debian is set
   ansible.builtin.apt_repository:
-    repo: "deb [arch={{ debian_architecture.stdout }}] https://download.docker.com/linux/debian {{ docker_debian_release }} stable"
+    repo: "deb [arch={{ debian_architecture.stdout }} signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian {{ docker_debian_release }} stable"
     state: present
     filename: docker
     update_cache: true
