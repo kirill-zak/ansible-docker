@@ -4,18 +4,12 @@ An Ansible role that installs the latest version of Docker CE on the official in
 
 ## Support distributive
 
-* AlmaLinux `9.0`, `9.1`, `9.2`.
-* Alpine Linux 3.16.x (`3.16.0`, `3.16.1`, `3.16.2`, `3.16.3`, `3.16.4`, `3.16.5`)
-* Alpine Linux 3.17.x (`3.17.0`, `3.17.1`, `3.17.2`, `3.17.3`)
-* Alpine Linux 3.18.x (`3.18.0`)
-* CentOS `8`
-* Debian `10` (`Buster`)
-* Debian `11` (`Bullseye`)
-* Fedora (`35`, `36`, `37`)
-* Rocky Linux `9.0`, `9.1`, `9.2`.
-* Ubuntu `18.04` (`Bionic Beaver`)
-* Ubuntu `20.04` (`Focal Fossa`)
-* Ubuntu `22.04` (`Jammy Jellyfish`)
+* AlmaLinux `8.x` (`8.5` – `8.10`), `9.x` (`9.0` – `9.8`)
+* Alpine Linux `3.22.x`, `3.23.x`
+* Debian `12` (`Bookworm`), `13` (`Trixie`)
+* Fedora `43`, `44`
+* Rocky Linux `8.x` (`8.5` – `8.9`), `9.x` (`9.0` – `9.8`)
+* Ubuntu `22.04` (`Jammy Jellyfish`), `24.04` (`Noble Numbat`), `26.04`
 
 ## Requirements
 

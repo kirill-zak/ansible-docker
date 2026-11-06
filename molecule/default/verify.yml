@@ -2,7 +2,7 @@
 - name: Verify
   hosts: all
   tasks:
-    # Verify Docker package status
+    # Verify Docker package status for not Alpine Linux
     - name: Gather the package facts
       ansible.builtin.package_facts:
         manager: auto
@@ -10,7 +10,7 @@
 
     - name: Check if docker package installed
       ansible.builtin.assert:
-        that: 
+        that:
           - "'docker-ce' in ansible_facts.packages"
           - "'containerd.io' in ansible_facts.packages"
       when: ansible_distribution != 'Alpine'

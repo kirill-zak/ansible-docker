@@ -19,6 +19,38 @@
   changed_when: false
   when: docker_service_proxy
 
+# Alpine (OpenRC): the docker init script declares "need sysfs cgroups net".
+# The "net" virtual resolves to the "networking" service, which fails to
+# start in the container because the image ships no /etc/network/interfaces
+# and no provider for the "dev" virtual service (hwdrivers/machine-id need
+# it). Without these two prerequisites "rc-service docker start" dies with
+# "ERROR: cannot start docker as networking would not start".
+- name: Configure loopback interface for OpenRC networking on Alpine
+  ansible.builtin.copy:
+    dest: /etc/network/interfaces
+    content: |
+      auto lo
+      iface lo inet loopback
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_distribution == 'Alpine'
+
+- name: Provide the "dev" OpenRC virtual service for docker on Alpine
+  ansible.builtin.copy:
+    dest: /etc/init.d/docker-openrc-deps
+    content: |
+      #!/sbin/openrc-run
+      name="Docker OpenRC dependencies shim"
+      description="Provides the \"dev\" virtual service required by docker's OpenRC init script in containers"
+      depend() {
+        provide dev
+      }
+    owner: root
+    group: root
+    mode: '0755'
+  when: ansible_distribution == 'Alpine'
+
 - name: Ensure Docker is started and enabled at boot.
   ansible.builtin.service:
     name: docker
