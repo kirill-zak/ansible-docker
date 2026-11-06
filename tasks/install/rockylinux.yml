@@ -18,7 +18,7 @@
 
 - name: Install Docker dependencies
   ansible.builtin.dnf:
-    name: 
+    name:
       - dnf-plugins-core
     state: present
   register: result
@@ -28,14 +28,16 @@
   changed_when: false
 
 - name: Add Docker repository
-  ansible.builtin.command: dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-  changed_when: false
+  ansible.builtin.get_url:
+    url: https://download.docker.com/linux/centos/docker-ce.repo
+    dest: /etc/yum.repos.d/docker-ce.repo
+    mode: '0644'
 
 - name: Install Docker
   ansible.builtin.dnf:
     name:
-      - docker-ce 
-      - docker-ce-cli 
+      - docker-ce
+      - docker-ce-cli
       - containerd.io
     state: present
   register: result

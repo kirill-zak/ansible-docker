@@ -4,3 +4,9 @@
 *.DS_Store?
 *pytestdebug.log
 .vscode/*
+
+# AI
+.context/
+
+# Python venv
+.ansible

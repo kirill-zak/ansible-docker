@@ -19,7 +19,7 @@
       - software-properties-common
       - gnupg-agent
     state: present
-    update_cache: yes
+    update_cache: true
   register: result
   until: result is success
   retries: 5

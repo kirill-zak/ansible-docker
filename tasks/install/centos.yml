@@ -24,8 +24,10 @@
   delay: 5
 
 - name: Add Docker repository
-  ansible.builtin.command: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-  changed_when: false
+  ansible.builtin.get_url:
+    url: https://download.docker.com/linux/centos/docker-ce.repo
+    dest: /etc/yum.repos.d/docker-ce.repo
+    mode: '0644'
 
 - name: Install Docker
   ansible.builtin.yum:
@@ -38,4 +40,3 @@
   until: result is success
   retries: 5
   delay: 5
-  
