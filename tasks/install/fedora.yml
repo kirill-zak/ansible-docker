@@ -51,3 +51,27 @@
   retries: 5
   delay: 5
   changed_when: false
+
+# docker-ce on Fedora pulls the legacy iptables backend. Inside the
+# containers the tests run under rootless podman, there is no ip_tables
+# kernel module, so dockerd cannot create its NAT table and fails to start.
+# Switch to the nftables backend, which is supported in user namespaces.
+- name: Install the nftables variant of iptables for docker-ce
+  ansible.builtin.dnf:
+    name:
+      - iptables-nft
+    state: present
+    use_backend: dnf4
+  register: result
+  until: result is success
+  retries: 5
+  delay: 5
+  changed_when: false
+
+- name: Remove the legacy iptables backend broken under rootless podman
+  ansible.builtin.dnf:
+    name:
+      - iptables-legacy
+    state: absent
+    use_backend: dnf4
+  changed_when: false
