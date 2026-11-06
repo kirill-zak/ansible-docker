@@ -29,6 +29,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `ansible-lint` now runs with `profile: production` and no skipped rules.
 - Debian/Ubuntu/Fedora/AlmaLinux/Rocky Linux install tasks now add the Docker
   repository with `get_url` instead of shelling out to `config-manager`.
+- Debian/Ubuntu install tasks now fetch the Docker signing key with `get_url`
+  into `/etc/apt/keyrings` and reference it with `signed-by` in the sources
+  entry, replacing the deprecated `apt_key` module.
 
 ### Fixed
 
@@ -43,6 +46,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   module`: the `dnf` tasks now pin `use_backend: dnf4`, since the test images
   ship the dnf4 (`python3-dnf`) bindings but not `python3-libdnf5`, which the
   default dnf5 backend requires.
+- Debian 13 (trixie) and Ubuntu 26.04 tests failing with `apt-key` not found:
+  apt-key is no longer shipped on those releases, so the key is fetched into
+  `/etc/apt/keyrings` and used via `signed-by`.
+- Alpine tests failing with `ERROR: cannot start docker as networking would
+  not start`: docker's OpenRC init script `need`s `net`, but the `networking`
+  service cannot start in the container because there is no
+  `/etc/network/interfaces` and no provider for the `dev` virtual service.
+  The role now writes a loopback-only interfaces file and a small init
+  script that provides `dev` before starting the docker service.
+- Fedora 43/44 tests failing with dockerd `failed to create NAT chain DOCKER:
+  Table does not exist`: docker-ce pulls the legacy iptables backend, which
+  cannot create a NAT table under rootless podman (no `ip_tables` kernel
+  module in the container). The role installs `iptables-nft` and removes
+  `iptables-legacy` so dockerd uses the nftables backend.
 
 ### Removed
 
